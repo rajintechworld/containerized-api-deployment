@@ -1,0 +1,17 @@
+name: GitHub to Discord Notification
+
+on: 
+  push:
+    branches:
+      - main  # Change this if you want notifications for other branches
+
+jobs:
+  discord_notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "🚀 **New Push in ${{ github.repository }}!** \n📌 Commit: `${{ github.event.head_commit.message }}` \n👤 By: `${{ github.actor }}` \n🔗 [View Commit](${{ github.event.head_commit.url }})"
